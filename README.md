@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Tiny-VLM
 一个轻量级的多模态预训练模型
 =======
@@ -101,32 +100,6 @@ Qwen2-7B 是阿里云开源的大语言模型：
 2. **文本处理**: 使用 Qwen2 分词器，支持 ChatML 格式的对话模板
 3. **标签生成**: 仅计算 assistant 回复部分的损失
 
-## 代码文件构成
-
-```
-Tiny-VLM/
-├── model/                          # 模型定义
-│   ├── model_tiny_vlm.py           # TinyVLM 主模型类
-│   ├── model_vision.py             # InternViT 视觉编码器
-│   └── __init__.py                 # 模块初始化
-├── trainer/                        # 训练脚本
-│   ├── train_pretrain_vlm.py       # 预训练脚本
-│   ├── train_sft_vlm.py            # 监督微调脚本
-│   ├── trainer_utils.py            # 训练工具函数
-│   └── __init__.py                 # 模块初始化
-├── dataset/                        # 数据处理
-│   ├── lm_dataset.py               # VLM 数据集类
-│   └── __init__.py                 # 模块初始化
-├── scripts/                        # 工具脚本
-│   └── (预留)
-├── out/                            # 模型输出目录
-├── checkpoints/                    # 训练检查点目录
-├── eval_vlm.py                     # 模型评估脚本
-├── download_models.py              # 模型下载脚本
-├── requirements.txt                # Python 依赖
-└── README.md                       # 项目文档
-```
-
 ### 核心文件说明
 
 | 文件 | 功能 |
@@ -139,50 +112,12 @@ Tiny-VLM/
 | `trainer/trainer_utils.py` | 训练工具函数（学习率调度、检查点等） |
 | `eval_vlm.py` | 模型推理和评估 |
 
-## 与 MiniMind-V 的关键区别
-
-### 架构差异
-
-| 特性 | MiniMind-V | Tiny-VLM |
-|------|------------|----------|
-| Vision Encoder | CLIP-ViT-Base (86M) | InternViT-300M (300M) |
-| LLM | MiniMind (26M-104M) | Qwen2-7B (7B) |
-| 图像分辨率 | 224×224 | 448×448 |
-| 视觉特征维度 | 768 | 1024 |
-| LLM 隐藏层维度 | 512/768 | 3584 |
-| 总参数量 | 26M-104M | ~7.3B |
-
-### 性能对比
-
-| 指标 | MiniMind-V | Tiny-VLM |
-|------|------------|----------|
-| 图像理解能力 | 基础 | 强 |
-| 对话能力 | 基础 | 优秀 |
-| 中文支持 | 一般 | 优秀 |
-| 推理显存 | 0.6-1.1 GB | ~16 GB |
-| 训练成本 | 极低 (~1.3元) | 较高 |
-
 ### 创新点
 
 1. **更强的视觉编码器**: InternViT-300M 具有更细粒度的图像特征提取能力
 2. **更强大的语言模型**: Qwen2-7B 提供优秀的语言理解和生成能力
 3. **更高的图像分辨率**: 448×448 输入，捕捉更多图像细节
 4. **完整的中文支持**: Qwen2 原生支持中英文对话
-
-## 训练环境要求
-
-### 硬件要求
-
-- **GPU**: NVIDIA GPU，显存 ≥24GB（推荐 A100/H100）
-- **CPU**: 多核 CPU
-- **内存**: ≥64GB RAM
-- **存储**: ≥50GB（模型 + 数据集）
-
-### 软件要求
-
-- Python 3.10+
-- CUDA 12.0+
-- PyTorch 2.0+
 
 ## 安装步骤
 
@@ -275,19 +210,6 @@ python trainer/train_pretrain_vlm.py --from_resume 1
 | `--max_seq_len` | 4096 | 最大序列长度 |
 | `--from_weight` | pretrain_vlm | 基础权重名称 |
 
-## 常见问题
-
-1. **CUDA内存不足**: 减小 `batch_size` 或 `max_seq_len`，或使用 DeepSpeed ZeRO
-2. **模型下载失败**: 检查网络连接，或使用 ModelScope 镜像
-3. **权重加载失败**: 确保模型路径正确，检查配置参数是否匹配
-
-## 相关资源
-
-- **InternViT**: https://github.com/OpenGVLab/InternVL
-- **Qwen2**: https://github.com/QwenLM/Qwen2
-- **MiniMind-V**: https://github.com/jingyaogong/minimind-v
-
 ## License
 
 Apache-2.0 License
->>>>>>> bc124fa (upload tiny-vlm project)
